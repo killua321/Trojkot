@@ -1,0 +1,66 @@
+#include <iostream>
+#include <cmath>
+#include <stdlib.h>
+using namespace std;
+int iloscObrotow, iloscPonktow;
+int SkrajnieLewy(int ponkty[][2], ulozone[][3]){
+    int maks=1000000000;
+    int zwrot=0;
+    for(int i=0; i<iloscPonktow; i++){
+
+            if(ponkty[i][0]<maks){
+                maks=ponkty[i][0];
+                zwrot=i;
+            }
+    }
+    return zwrot;
+}
+int SkrajniePrawy(int ponkty[][2]){
+    int maks=-1000000000;
+    int zwrot=0;
+    for(int i=0; i<iloscPonktow; i++){
+            if(ponkty[i][0]>maks){
+                maks=ponkty[i][0];
+                zwrot=i;
+        }
+    }
+    return zwrot;
+}
+int SkrajnyY(int ponkty[][2]){
+    int maks=-1000000000;
+    int zwrot=0;
+    for(int i=0; i<iloscPonktow; i++){
+        if(abs(ponkty[i][1]>maks)){
+            maks=ponkty[i][1];
+            zwrot=i;
+        }
+    }
+    return zwrot;
+}
+int main()
+{
+    cin>>iloscObrotow;
+    cin>>iloscPonktow;
+    int iloscTorkotow=iloscPonktow/3;
+    int ulozone[iloscPonktow/3][3];
+    int ponkty[iloscPonktow][2];
+    for (int i=0; i<iloscTorkotow; i++){
+        for (int j=0; j<iloscPonktow; j++){
+            cout<<"prosze podac dane wejscowe dla punktu "<<j<<": ";
+            cin>>ponkty[j][0];
+            cin>>ponkty[j][1];
+        }
+        ulozone[i][0]=SkrajnyY(ponkty, ulozone);
+        cout<<"to jest skrajny ponkt w osi y: "<< ulozone[i][0]<<endl;
+        int lewy=SkrajnieLewy(ponkty, ulozone);
+        ulozone[i][1]=lewy;
+        cout<<"to jest najbardziej lewy ponkt: "<<ulozone[i][1]<<endl;
+        ulozone[i][2]=SkrajniePrawy(ponkty, ulozone);
+        cout<<"to jest skrajnie prawy: "<<ulozone[i][2]<<endl;
+
+
+    }
+    return 0;
+
+}
+
